@@ -9,6 +9,7 @@
 
 #define slave_w 0b01000000
 #define slave_r 0b01000001
+#define IMU_ADD 0b11010110
 
 void init();
 void I2C_master_setup(void);
@@ -22,5 +23,7 @@ void I2C_master_restart(void);
 void I2C_send(unsigned char i);
 unsigned char I2C_receive(void);
 void i2c_ack(int a);
+short combine(unsigned char, unsigned char);
+void I2C_read_multiple(unsigned char address, unsigned char register, unsigned char * data, int length);
 
 #endif

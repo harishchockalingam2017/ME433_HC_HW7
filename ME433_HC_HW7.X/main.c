@@ -1,6 +1,8 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
 #include "i2c_lib.h"
+#include "lcd_lib.h"
+#include "stdio.h"
 
 // DEVCFG0
 #pragma config DEBUG = 0b11 // no debugging
@@ -56,7 +58,10 @@ void main() {
     // disable JTAG to get pins back
     DDPCONbits.JTAGEN = 0;
     
-    init();
+    I2C_master_setup();
+    SPI1_init();
+    LCD_init();
+    I2C_master_setup();
     
     // do your TRIS and LAT commands here
     TRISAbits.TRISA4=0;
@@ -66,14 +71,38 @@ void main() {
     
     __builtin_enable_interrupts();
     
-    char i;
+    LCD_clearScreen(0x00FF);
+    char message[100];
+    
+    char whoami=getState(0x0F);
+    sprintf(message,"WHOAMI ");
+    drawString(5,2,message);
+    sprintf(message,"%d",whoami);
+    drawString(5,12,message);
+    
+    sprintf(message, "X");
+    drawString(120,64,message);
+    sprintf(message,"Y");
+    drawString(64,2,message);
+    
+    int i;
+    char data_ap[14];
+    short comb_data[7];
+    
     while(1) {
-        if(!getState(7)){
-            setState (ADD_LAT, 0b00000001);
+        _CP0_SET_COUNT(0);
+        while(_CP0_GET_COUNT()<4800000){;
+            while(!PORTBbits.RB4){;}}
+        
+        I2C_read_multiple(IMU_ADD,0x20,data_ap,14);
+        
+        for(i=0; i<7; i=i+1){
+            comb_data[i]=combine(data_ap[2*i],data_ap[1+2*i]);
         }
-        else{
-            setState(ADD_LAT, 0b00000000);
-        }
+        
+        xdirect(64,64,0xF800,50,4,comb_data[4]);
+        ydirect(64,64,0x07E0,50,4,comb_data[5]);
+        LATAINV=0b10000;
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 		  // remember the core timer runs at half the sysclk
     }

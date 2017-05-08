@@ -254,4 +254,89 @@ void LCD_clearScreen(unsigned short color) {
      }
         
  }
-    
+ 
+void xdirect(unsigned short x, unsigned short y, unsigned short color, unsigned char l, unsigned char w, short f){
+     int i; int j; float p;
+     p=(float)f/16383;
+     
+     if(f>=0){
+         for(i=0; i<l;i=i+1){
+             if(i<((int)(l*p))){
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x+i,y+j,color);
+                     LCD_drawPixel(x-i,y+j,RED);
+                 }
+             }
+             else{
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x+i,y+j,RED);
+                     LCD_drawPixel(x-i,y+j,RED);
+                 }
+             }
+         }
+     }
+     else{
+         for(i=0;i<l;i=i+1){
+             if(i<((int)(l*-p))){
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x-i,y+j,color);
+                     LCD_drawPixel(x+i,y+j,RED);
+                 }
+             }
+             else{
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x-i,y+j,RED);
+                     LCD_drawPixel(x+i,y+j,RED);
+                 }
+             }
+         }
+     }
+     for(i=0;i<w;i=i+1){
+         for(j=0;j<w;j=j+1){
+             LCD_drawPixel(x+i,y+j,0xFFFF);
+         }
+     }
+ }
+ 
+void ydirect(unsigned short x, unsigned short y, unsigned short color, unsigned char l, unsigned char w, short f){
+     int i; int j; float p;
+     p=(float)f/16383;
+     
+     if(f>=0){
+         for(i=0; i<l;i=i+1){
+             if(i<((int)(l*p))){
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x+j,y+i,color);
+                     LCD_drawPixel(x+j,y-i,RED);
+                 }
+             }
+             else{
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x+j,y+i,RED);
+                     LCD_drawPixel(x+j,y-i,RED);
+                 }
+             }
+         }
+     }
+     else{
+         for(i=0;i<l;i=i+1){
+             if(i<((int)(l*-p))){
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x+j,y-i,color);
+                     LCD_drawPixel(x+j,y+i,RED);
+                 }
+             }
+             else{
+                 for(j=0;j<w;j=j+1){
+                     LCD_drawPixel(x+j,y-i,RED);
+                     LCD_drawPixel(x+j,y+i,RED);
+                 }
+             }
+         }
+     }
+     for(i=0;i<w;i=i+1){
+         for(j=0;j<w;j=j+1){
+             LCD_drawPixel(x+j,y+i,0xFFFF);
+         }
+     }
+ }
