@@ -7,8 +7,8 @@
 #ifndef I2C_LIB_H
 #define	I2C_LIB_H
 
-#define slave_w 0b01000000
-#define slave_r 0b01000001
+#define slave_w 0b11010110
+#define slave_r 0b11010111
 #define IMU_ADD 0b11010110
 
 void init();

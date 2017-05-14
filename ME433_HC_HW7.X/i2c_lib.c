@@ -78,15 +78,15 @@ char getState(char p){
     
     I2C_master_start();
     I2C_send(slave_w);
-    I2C_send(0x09);
+    I2C_send(p);
     I2C_master_restart();
     I2C_send(slave_r);
     s=I2C_receive();
     I2C_ack(1);
     I2C_master_stop();
-    r=(s>>p)&(0b1);
+   // r=(s>>p)&(0b1);
     
-    return r;
+    return s;
 }
 
 short combine(unsigned char x, unsigned char y){

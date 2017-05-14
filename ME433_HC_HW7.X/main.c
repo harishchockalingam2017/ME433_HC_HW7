@@ -39,10 +39,6 @@
 #pragma config FUSBIDIO = ON // USB pins controlled by USB module
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
-#define ADD_LAT 0x0A
-#define ADD_IO 0x00
-
-
 void main() {
     __builtin_disable_interrupts();
 
@@ -58,7 +54,6 @@ void main() {
     // disable JTAG to get pins back
     DDPCONbits.JTAGEN = 0;
     
-    I2C_master_setup();
     SPI1_init();
     LCD_init();
     I2C_master_setup();
@@ -67,7 +62,6 @@ void main() {
     TRISAbits.TRISA4=0;
     TRISBbits.TRISB4=1;
     LATAbits.LATA4=1;
-    
     
     __builtin_enable_interrupts();
     
@@ -80,7 +74,7 @@ void main() {
     sprintf(message,"%d",whoami);
     drawString(5,12,message);
     
-    sprintf(message, "X");
+    sprintf(message,"X");
     drawString(120,64,message);
     sprintf(message,"Y");
     drawString(64,2,message);
@@ -100,7 +94,7 @@ void main() {
             comb_data[i]=combine(data_ap[2*i],data_ap[1+2*i]);
         }
         
-        xdirect(64,64,0xF800,50,4,comb_data[4]);
+        xdirect(64,64,0xFFE0,50,4,comb_data[4]);
         ydirect(64,64,0x07E0,50,4,comb_data[5]);
         LATAINV=0b10000;
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
