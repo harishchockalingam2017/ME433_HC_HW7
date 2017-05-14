@@ -264,13 +264,13 @@ void xdirect(unsigned short x, unsigned short y, unsigned short color, unsigned 
              if(i<((int)(l*p))){
                  for(j=0;j<w;j=j+1){
                      LCD_drawPixel(x+i,y+j,color);
-                     LCD_drawPixel(x-i,y+j,RED);
+                     LCD_drawPixel(x-i,y+j,BLUE);
                  }
              }
              else{
                  for(j=0;j<w;j=j+1){
-                     LCD_drawPixel(x+i,y+j,RED);
-                     LCD_drawPixel(x-i,y+j,RED);
+                     LCD_drawPixel(x+i,y+j,BLUE);
+                     LCD_drawPixel(x-i,y+j,BLUE);
                  }
              }
          }
@@ -280,13 +280,13 @@ void xdirect(unsigned short x, unsigned short y, unsigned short color, unsigned 
              if(i<((int)(l*-p))){
                  for(j=0;j<w;j=j+1){
                      LCD_drawPixel(x-i,y+j,color);
-                     LCD_drawPixel(x+i,y+j,RED);
+                     LCD_drawPixel(x+i,y+j,BLUE);
                  }
              }
              else{
                  for(j=0;j<w;j=j+1){
-                     LCD_drawPixel(x-i,y+j,RED);
-                     LCD_drawPixel(x+i,y+j,RED);
+                     LCD_drawPixel(x-i,y+j,BLUE);
+                     LCD_drawPixel(x+i,y+j,BLUE);
                  }
              }
          }
@@ -307,13 +307,13 @@ void ydirect(unsigned short x, unsigned short y, unsigned short color, unsigned 
              if(i<((int)(l*p))){
                  for(j=0;j<w;j=j+1){
                      LCD_drawPixel(x+j,y+i,color);
-                     LCD_drawPixel(x+j,y-i,RED);
+                     LCD_drawPixel(x+j,y-i,BLUE);
                  }
              }
              else{
                  for(j=0;j<w;j=j+1){
-                     LCD_drawPixel(x+j,y+i,RED);
-                     LCD_drawPixel(x+j,y-i,RED);
+                     LCD_drawPixel(x+j,y+i,BLUE);
+                     LCD_drawPixel(x+j,y-i,BLUE);
                  }
              }
          }
@@ -323,13 +323,13 @@ void ydirect(unsigned short x, unsigned short y, unsigned short color, unsigned 
              if(i<((int)(l*-p))){
                  for(j=0;j<w;j=j+1){
                      LCD_drawPixel(x+j,y-i,color);
-                     LCD_drawPixel(x+j,y+i,RED);
+                     LCD_drawPixel(x+j,y+i,BLUE);
                  }
              }
              else{
                  for(j=0;j<w;j=j+1){
-                     LCD_drawPixel(x+j,y-i,RED);
-                     LCD_drawPixel(x+j,y+i,RED);
+                     LCD_drawPixel(x+j,y-i,BLUE);
+                     LCD_drawPixel(x+j,y+i,BLUE);
                  }
              }
          }
